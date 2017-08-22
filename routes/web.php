@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::any('/logistik/barang', 'BarangController@showAll');
+
+Route::any('/logistik/barang/tambah', 'BarangController@addForm');
+
+Route::post('/logistik/barang/tambah/do', 'BarangController@addItem');
