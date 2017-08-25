@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Proyek;
+use App\Barang;
 
 class ProyekController extends Controller
 {
@@ -14,7 +15,8 @@ class ProyekController extends Controller
   }
 
   public function addForm(){
-    return \View::make('addProject');
+    $daftarbarang = Barang::orderBy('nama')->get();
+    return \View::make('addProject', compact("daftarbarang"));
   }
 
   //location should be logistik/barang/tambah
