@@ -6,6 +6,6 @@
 
 @section('content')
   @foreach($items as $item)
-    {{$item->nama}}<br/>
+    {{$item->nama}} {{$item->stok}} {{$item->satuan}}<br/>
   @endforeach
 @stop

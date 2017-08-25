@@ -7,11 +7,12 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Redirect;
+use App\Barang;
 
 class BarangController extends Controller
 {
   public function showAll(){
-    $items = DB::table("barang")->orderBy("nama","asc")->get();
+    $items = Barang::orderBy('nama')->get();
     return \View::make('items', compact("items"));
   }
 
