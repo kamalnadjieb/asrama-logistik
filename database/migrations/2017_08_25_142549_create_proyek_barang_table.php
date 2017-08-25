@@ -16,6 +16,8 @@ class CreateProyekBarangTable extends Migration
         Schema::create('proyek_barang', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->integer('id_barang');
+            $table->integer('id_proyek');
         });
     }
 
