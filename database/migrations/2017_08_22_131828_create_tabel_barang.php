@@ -19,6 +19,7 @@ class CreateTabelBarang extends Migration
             $table->string('satuan');
             $table->integer('stok');
             $table->timestamps();
+            $table->unique(['nama','satuan']);
         });
     }
 
