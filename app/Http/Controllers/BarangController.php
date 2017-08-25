@@ -25,13 +25,11 @@ class BarangController extends Controller
     $querySuccessMessage = "<script>alert('barang berhasil ditambahkan');window.location = '".URL::to('logistik/barang')."';</script>";
     $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/tambah')."';</script>";
     try{
-      $inserted = DB::table("barang")->insert(
-        [
-          "nama" => $req->input("nama"),
-          "satuan" => $req->input("satuan"),
-          "stok" => $req->input("stok")
-        ]
-      );
+      $item = new Barang();
+      $item->nama = $req->input('nama');
+      $item->satuan = $req->input('satuan');
+      $item->stok = $req->input('stok');
+      $inserted = $item->save();
       if ($inserted)
         echo $querySuccessMessage;
       else {
