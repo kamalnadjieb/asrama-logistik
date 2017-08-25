@@ -20,6 +20,7 @@ class CreateProyekTable extends Migration
             $table->string('deskripsi');
             $table->date('tanggal_mulai');
             $table->timestamps();
+            $table->unique(['nama','tanggal_mulai']);
         });
     }
 

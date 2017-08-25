@@ -26,3 +26,5 @@ Route::any('/logistik/proyek', 'ProyekController@showAll');
 Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
 
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
+
+Route::any('/logistik/proyek/debug', 'ProyekController@debug');

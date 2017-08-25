@@ -39,4 +39,12 @@ class ProyekController extends Controller
       echo $queryFailMessage;
     }
   }
+
+  public function debug(){
+    $items = Proyek::find(1)->items;
+    foreach ($items as $item) {
+      echo $item . "<br>";
+    }
+    return 1;
+  }
 }
