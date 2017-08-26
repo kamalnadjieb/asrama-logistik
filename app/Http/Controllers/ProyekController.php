@@ -12,6 +12,12 @@ class ProyekController extends Controller
     $projects = Proyek::orderBy('tanggal_mulai')->get();
     return \View::make('projects', compact("projects"));
   }
+  
+  public function showProyekById($id) {
+	$projects = Proyek::where('id', $id)->get();
+	$project = $projects[0];
+	return \View::make('projectDetails', compact("project"));
+  }
 
   public function addForm(){
     return \View::make('addProject');
