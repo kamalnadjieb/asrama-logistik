@@ -17,6 +17,6 @@ class Proyek extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Barang', 'proyek_barang', 'id_proyek', 'id_barang')->withPivot('jumlah');
+        return $this->belongsToMany('App\Barang', 'proyek_barang', 'id_proyek', 'id_barang')->withPivot('jumlah')->withTimestamps();
     }
 }
