@@ -39,4 +39,45 @@ class BarangController extends Controller
       echo $queryFailMessage;
     }
   }
+
+  public function updateForm($id){
+    $item = Barang::find($id);
+    dd($item);
+    return \View::make('updateItem', ['item' => $item['attributes']]);
+  }
+
+  public function updateItem(Request $req) {
+    $querySuccessMessage = "<script>alert('barang berhasil diperbarui');window.location = '".URL::to('logistik/barang')."';</script>";
+    $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/update')."';</script>";
+    try{
+      $item = Barang::where('id', $req->input('id'))->first();
+      $item->nama = $req->input('nama');
+      $item->satuan = $req->input('satuan');
+      $item->stok = $req->input('stok');
+      $updated = $item->save();
+      if ($updated)
+        echo $querySuccessMessage;
+      else {
+        echo $queryFailMessage;
+      }
+    } catch (QueryException $e) {
+      echo $queryFailMessage;
+    }
+  }
+
+  public function deleteItem() {
+    $querySuccessMessage = "<script>alert('barang berhasil dihapus');window.location = '".URL::to('logistik/barang')."';</script>";
+    $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang')."';</script>";
+    try{
+      $item = Barang::where('id', $req->input('id'))->first();
+      $deleted = $item->delete();
+      if ($deleted)
+        echo $querySuccessMessage;
+      else {
+        echo $queryFailMessage;
+      }
+    } catch (QueryException $e) {
+      echo $queryFailMessage;
+    }
+  }
 }

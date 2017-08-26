@@ -5,50 +5,59 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Proyek;
+use App\Barang;
 
 class ProyekController extends Controller
 {
-  public function showAll(){
-    $projects = Proyek::orderBy('tanggal_mulai')->get();
-    return \View::make('projects', compact("projects"));
-  }
-  
-  public function showProyekById($id) {
-	$projects = Proyek::where('id', $id)->get();
-	$project = $projects[0];
-	return \View::make('projectDetails', compact("project"));
-  }
+	public function showAll(){
+		$projects = Proyek::orderBy('tanggal_mulai')->get();
+		return \View::make('projects', compact("projects"));
+	}
 
-  public function addForm(){
-    return \View::make('addProject');
-  }
+	public function showProyekById($id) {
+		$projects = Proyek::where('id', $id)->get();
+		$project = $projects[0];
+		return \View::make('projectDetails', compact("project"));
+	}
 
-  //location should be logistik/barang/tambah
-  public function addProject(Request $req){
-    $querySuccessMessage = "<script>alert('proyek berhasil ditambahkan');window.location = '".URL::to('logistik/proyek')."';</script>";
-    $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/proyek/tambah')."';</script>";
-    try{
-      $project = new Proyek();
-      $project->nama = $req->input('nama');
-      $project->lokasi = $req->input('lokasi');
-      $project->deskripsi = $req->input('deskripsi');
-      $project->tanggal_mulai = $req->input('tanggal_mulai');
-      $inserted = $project->save();
-      if ($inserted)
-        echo $querySuccessMessage;
-      else {
-        echo $queryFailMessage;
-      }
-    } catch (QueryException $e) {
-      echo $queryFailMessage;
+    public function addForm()
+    {
+        $daftarbarang = Barang::orderBy('nama')->get();
+        return \View::make('addProject', compact("daftarbarang"));
     }
-  }
 
-  public function debug(){
-    $items = Proyek::find(1)->items;
-    foreach ($items as $item) {
-      echo $item . "<br>";
+    //location should be logistik/barang/tambah
+    public function addProject(Request $req)
+    {
+        $querySuccessMessage = "<script>alert('proyek berhasil ditambahkan');window.location = '" . URL::to('logistik/proyek') . "';</script>";
+        $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '" . URL::to('logistik/proyek/tambah') . "';</script>";
+        try {
+            $project = new Proyek();
+            $project->setValues($req->all());
+            $inserted = $project->save();
+            if ($inserted) {
+                $items = $req->input('barang');
+                $sync_data = [];
+                foreach ($items as $item){
+                    $sync_data[$item] = ['jumlah' => $item];
+                }
+                $project->items()->sync($sync_data);
+                echo $querySuccessMessage;
+            }
+            else {
+                echo $queryFailMessage;
+            }
+        } catch (QueryException $e) {
+            echo $queryFailMessage;
+        }
     }
-    return 1;
-  }
+
+    public function debug($id)
+    {
+        $items = Proyek::find($id)->items;
+        foreach ($items as $item) {
+            echo $item . "<br>";
+        }
+        return $id;
+    }
 }
