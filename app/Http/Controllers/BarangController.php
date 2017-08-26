@@ -40,6 +40,10 @@ class BarangController extends Controller
     }
   }
 
+  public function updateForm(){
+    return \View::make('updateItem');
+  }
+
   public function updateItem(Request $req) {
     $querySuccessMessage = "<script>alert('barang berhasil diperbarui');window.location = '".URL::to('logistik/barang')."';</script>";
     $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/update')."';</script>";

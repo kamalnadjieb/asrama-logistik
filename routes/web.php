@@ -21,6 +21,10 @@ Route::any('/logistik/barang/tambah', 'BarangController@addForm');
 
 Route::post('/logistik/barang/tambah/do', 'BarangController@addItem');
 
+Route::any('/logistik/barang/update', 'BarangController@updateForm');
+
+Route::post('/logistik/barang/update/do', 'BarangController@updateItem');
+
 Route::any('/logistik/proyek', 'ProyekController@showAll');
 
 Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
