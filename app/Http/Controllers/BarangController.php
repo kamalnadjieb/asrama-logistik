@@ -26,9 +26,7 @@ class BarangController extends Controller
     $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/tambah')."';</script>";
     try{
       $item = new Barang();
-      $item->nama = $req->input('nama');
-      $item->satuan = $req->input('satuan');
-      $item->stok = $req->input('stok');
+      $item->setValues($req->all());
       $inserted = $item->save();
       if ($inserted)
         echo $querySuccessMessage;
@@ -45,9 +43,7 @@ class BarangController extends Controller
     $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/update')."';</script>";
     try{
       $item = Barang::where('id', $req->input('id'))->first();
-      $item->nama = $req->input('nama');
-      $item->satuan = $req->input('satuan');
-      $item->stok = $req->input('stok');
+      $item->setValues($req->all());
       $updated = $item->save();
       if ($updated)
         echo $querySuccessMessage;
