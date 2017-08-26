@@ -31,4 +31,4 @@ Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
 
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
 
-Route::any('/logistik/proyek/debug', 'ProyekController@debug');
+Route::any('/logistik/proyek/debug/{id}', 'ProyekController@debug');

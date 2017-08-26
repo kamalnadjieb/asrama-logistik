@@ -8,8 +8,15 @@ class Proyek extends Model
 {
     protected $table = 'proyek';
 
+    public function setValues ($array) {
+        $this->nama = $array['nama'];
+        $this->lokasi = $array['lokasi'];
+        $this->deskripsi = $array['deskripsi'];
+        $this->tanggal_mulai = $array['tanggal_mulai'];
+    }
+
     public function items()
     {
-        return $this->belongsToMany('App\Barang', 'proyek_barang', 'id_proyek', 'id_barang');
+        return $this->belongsToMany('App\Barang', 'proyek_barang', 'id_proyek', 'id_barang')->withPivot('jumlah')->withTimestamps();
     }
 }
