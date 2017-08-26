@@ -40,8 +40,10 @@ class BarangController extends Controller
     }
   }
 
-  public function updateForm(){
-    return \View::make('updateItem');
+  public function updateForm($id){
+    $item = Barang::find($id);
+    dd($item);
+    return \View::make('updateItem', ['item' => $item['attributes']]);
   }
 
   public function updateItem(Request $req) {
