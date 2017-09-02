@@ -13,6 +13,11 @@ class Proyek extends Model
         $this->lokasi = $array['lokasi'];
         $this->deskripsi = $array['deskripsi'];
         $this->tanggal_mulai = $array['tanggal_mulai'];
+        
+        echo "hoihoihoi";
+        echo $array['id_asrama'];
+
+        $this->id_asrama = $array['id_asrama'];
     }
 
     public function items()

@@ -6,24 +6,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Proyek;
 use App\Barang;
+use App\Asrama;
 
 class ProyekController extends Controller
 {
 	public function showAll(){
 		$projects = Proyek::orderBy('tanggal_mulai')->get();
-		return \View::make('projects', compact("projects"));
+		return \View::make('project.projects', compact("projects"));
 	}
 
 	public function showProyekById($id) {
-		$projects = Proyek::where('id', $id)->get();
-		$project = $projects[0];
-		return \View::make('projectDetails', compact("project"));
+		$project = Proyek::find($id);
+		$items = $project->items;
+		return \View::make('project.projectDetails', compact("project","items"));
 	}
 
     public function addForm()
     {
         $daftarbarang = Barang::orderBy('nama')->get();
-        return \View::make('addProject', compact("daftarbarang"));
+        $daftarasrama = Asrama::orderBy('nama')->get();
+        return \View::make('project.addProject', compact("daftarbarang", "daftarasrama"));
     }
 
     //location should be logistik/barang/tambah

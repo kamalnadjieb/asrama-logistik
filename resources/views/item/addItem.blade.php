@@ -1,11 +1,11 @@
-@extends('item')
+@extends('item.item')
 
 @section('title')
-  update barang
+  tambah barang
 @stop
 
 @section('content')
-  <form method="POST" action="{{URL::to('logistik/barang/update/do')}}">
+  <form method="POST" action="{{url('logistik/barang')}}">
     {{ csrf_field() }}
     nama: <input name="nama" type="text"></input><br/>
     satuan: <input name="satuan" type="text"></input><br/>

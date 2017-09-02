@@ -15,21 +15,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('/logistik/barang', 'BarangController@showAll');
+Route::resource('logistik/barang', 'BarangController');
+// Route::any('/logistik/barang', 'BarangController@showAll');
 
-Route::any('/logistik/barang/tambah', 'BarangController@addForm');
+// Route::any('/logistik/barang/tambah', 'BarangController@addForm');
 
-Route::post('/logistik/barang/tambah/do', 'BarangController@addItem');
+// Route::post('/logistik/barang/tambah/do', 'BarangController@addItem');
 
-Route::any('/logistik/barang/update/{id}', 'BarangController@updateForm');
+// Route::any('/logistik/barang/update/{id}', 'BarangController@updateForm');
 
-Route::post('/logistik/barang/update/{id}/do', 'BarangController@updateItem');
+// Route::post('/logistik/barang/update/{id}/do', 'BarangController@updateItem');
 
 Route::any('/logistik/proyek', 'ProyekController@showAll');
 
-Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById']);
-
 Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
+
+Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById']);
 
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
 
