@@ -14,7 +14,8 @@ class AddIdAsramaToProyekTable extends Migration
     public function up()
     {
         Schema::table('proyek', function (Blueprint $table) {
-            //
+            $table->integer('id_asrama')->unsigned();
+            $table->foreign('id_asrama')->references('id')->on('asrama');
         });
     }
 
