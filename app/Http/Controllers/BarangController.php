@@ -19,7 +19,7 @@ class BarangController extends Controller
    */
   public function index()
   {
-      $items = Barang::orderBy('id')->get();
+      $items = Barang::orderBy('nama')->get();
       return view('item.items', compact("items"));
   }
 
