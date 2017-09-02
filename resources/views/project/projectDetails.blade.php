@@ -10,7 +10,7 @@
   <p>Lokasi: {{$project->lokasi}}</p>
   <p>Deskripsi: {{$project->deskripsi}}</p>
   <p>Tanggal mulai: {{$project->tanggal_mulai}}</p>
-  
+
   <br><br>
-  <p>Daftar barang: (pending) </p>
+  <p>Daftar barang: (pending). </p>
 @stop
