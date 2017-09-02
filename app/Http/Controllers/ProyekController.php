@@ -15,14 +15,13 @@ class ProyekController extends Controller
 	}
 
 	public function showProyekById($id) {
-		$projects = Proyek::where('id', $id)->get();
-		$project = $projects[0];
-		return \View::make('project.projectDetails', compact("project"));
+		$project = Proyek::find($id);
+		$items = $project->items;
+		return \View::make('project.projectDetails', compact("project","items"));
 	}
 
     public function addForm()
     {
-			echo "what";
         $daftarbarang = Barang::orderBy('nama')->get();
         return \View::make('project.addProject', compact("daftarbarang"));
     }

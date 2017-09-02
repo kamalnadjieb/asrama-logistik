@@ -12,5 +12,8 @@
   <p>Tanggal mulai: {{$project->tanggal_mulai}}</p>
 
   <br><br>
-  <p>Daftar barang: (pending). </p>
+  <p>Daftar barang:</p>
+  @foreach($items as $item)
+    {{$item->nama}} {{$item->stok}}/{{$item->pivot->jumlah}} {{$item->satuan}}<br/>
+  @endforeach
 @stop
