@@ -11,19 +11,20 @@ class ProyekController extends Controller
 {
 	public function showAll(){
 		$projects = Proyek::orderBy('tanggal_mulai')->get();
-		return \View::make('projects', compact("projects"));
+		return \View::make('project.projects', compact("projects"));
 	}
 
 	public function showProyekById($id) {
 		$projects = Proyek::where('id', $id)->get();
 		$project = $projects[0];
-		return \View::make('projectDetails', compact("project"));
+		return \View::make('project.projectDetails', compact("project"));
 	}
 
     public function addForm()
     {
+			echo "what";
         $daftarbarang = Barang::orderBy('nama')->get();
-        return \View::make('addProject', compact("daftarbarang"));
+        return \View::make('project.addProject', compact("daftarbarang"));
     }
 
     //location should be logistik/barang/tambah
