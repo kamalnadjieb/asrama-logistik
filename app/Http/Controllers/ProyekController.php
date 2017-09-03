@@ -38,11 +38,17 @@ class ProyekController extends Controller
             $project->setValues($req->all());
             $inserted = $project->save();
             if ($inserted) {
-                $items = $req->input('barang');
+            		$items = $req->input('barang');
+								$jumlah = $req->input('jumlah');
                 $sync_data = [];
-                foreach ($items as $item){
-                    $sync_data[$item] = ['jumlah' => $item];
+								for ($i = 0; $i < count($items); $i++) {
+									$sync_data[$items[$i]] = ['jumlah' => $jumlah[$i]];
+								}
+                /*
+								foreach ($items as $item){
+                    $sync_data[$item] = ['jumlah' => $jumlah];
                 }
+								*/
                 $project->items()->sync($sync_data);
                 echo $querySuccessMessage;
             }
