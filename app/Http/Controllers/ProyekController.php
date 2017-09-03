@@ -10,10 +10,38 @@ use App\Asrama;
 
 class ProyekController extends Controller
 {
-	public function showAll(){
-		$projects = Proyek::orderBy('tanggal_mulai')->get();
-		return \View::make('project.projects', compact("projects"));
+    private $projectsPerPage = 10;
+
+	public function showAll(Request $req){
+        return $this->show($req,1);
 	}
+
+	public function show(Request $req, $page){
+	    if ($req->has('key')){
+	        return $this->search($req->input('key'),1);
+        }
+	    $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
+            ->take($this->projectsPerPage)->get();
+	    $totalPages = $this->getTotalPages();
+	    $pageUrl = '/logistik/proyek/page/';
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
+    }
+
+    public function search($key,$page){
+	    $projects = Proyek::where('nama','ilike','%'.$key.'%')
+            ->orWhere('deskripsi','ilike','%'.$key.'%')->skip(($page-1)*$this->projectsPerPage)
+            ->take($this->projectsPerPage)->orderBy('tanggal_mulai','desc')->get();
+	    $totalPages = Proyek::where('nama','ilike','%'.$key.'%')
+            ->orWhere('deskripsi','ilike','%'.$key.'%')->count()/$this->projectsPerPage;
+	    $pageUrl = '/logistik/proyek/search/'.$key.'/';
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
+    }
+
+    private function getTotalPages(){
+        $total = Proyek::all()->count();
+        $totalPage = $total/$this->projectsPerPage;
+        return $totalPage;
+    }
 
 	public function showProyekById($id) {
 		$project = Proyek::find($id);

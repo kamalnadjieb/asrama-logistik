@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+$proyek = '/logistik/proyek';
+
 Route::resource('logistik/barang', 'BarangController');
 // Route::any('/logistik/barang', 'BarangController@showAll');
 
@@ -29,6 +31,8 @@ Route::resource('logistik/barang', 'BarangController');
 Route::any('/logistik/proyek', 'ProyekController@showAll');
 
 Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
+
+Route::any($proyek.'/page/{page}', ['uses'=> 'ProyekController@show']);
 
 Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById']);
 
