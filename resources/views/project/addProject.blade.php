@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="namabarang">Nama Barang:</label>
                 <div class="col-sm-10">
-<<<<<<< HEAD
+
                         <div>
                             <input type="text" id="search" name="search" style="width: 200px;" onkeyup="filter()">
                             <input id="jumlah" name="jumlah[]" type="number" placeholder="Banyak item"></input>
@@ -45,15 +45,6 @@
                                 @endforeach
                             </select>
                         </div>
-=======
-                    <select class="form-control" id="barang" name="barang[]" required>
-                        <option value="" disabled selected>Nama Barang</option>
-                        @foreach ($daftarbarang as $barang)
-                        <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
-                        @endforeach
-                    </select>
-                    <input class="form-control" id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
->>>>>>> c549bead331ad2c6103cd85a866563a611364d99
                 </div>
             </div>
         </div>
@@ -88,7 +79,7 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2" for="namabarang">Nama Barang:</label>
                     <div class="col-sm-10">
-<<<<<<< HEAD
+
                             <div>
                                 <input type="text" id="search" name="search" style="width: 200px;" onkeyup="filter()">
                                 <input id="jumlah" name="jumlah[]" type="number" placeholder="Banyak item"></input>
@@ -100,15 +91,7 @@
                                     @endforeach
                                 </select>
                             </div>
-=======
-                        <select class="form-control" id="barang" name="barang[]" required>
-                            <option value="" disabled selected>Nama Barang</option>
-                            @foreach ($daftarbarang as $barang)
-                            <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
-                            @endforeach
-                        </select>
-                        <input class="form-control" id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
->>>>>>> c549bead331ad2c6103cd85a866563a611364d99
+
                     </div>
                 </div>
                 <a href="#" class="col-sm-offset-2 col-sm-10 remove_field">Remove</a><br/>
@@ -120,7 +103,7 @@
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     });
-<<<<<<< HEAD
+
     
      $('.select_filter').on('change',function(){
       $.ajax({
@@ -145,7 +128,7 @@
         }
     }
 }
-=======
+
 
     function validateStok() {
       var arrInputBarang = document.getElementsByName('barang[]');  // <-- this shit right here, is the right one
@@ -173,6 +156,6 @@
       }
 
     }
->>>>>>> c549bead331ad2c6103cd85a866563a611364d99
+
     </script>
 @stop
