@@ -15,18 +15,18 @@
   @endforeach
   </table>
   @if($page>1)
-      <a href="{{URL::to($pageUrl.($page-1))}}">prev</a>&nbsp;
+      <a href="{{URL::to($pageUrl.($page-1).$prefixUrl)}}">prev</a>&nbsp;
   @endif
 
   @for($i=1;$i<=$totalPages;$i++)
       @if($i == $page)
           {{$i}}&nbsp;
       @else
-          <a href="{{URL::to($pageUrl.$i)}}">{{$i}}</a>&nbsp;
+          <a href="{{URL::to($pageUrl.$i.$prefixUrl)}}">{{$i}}</a>&nbsp;
       @endif
   @endfor
 
   @if($page<$totalPages)
-      <a href="{{URL::to($pageUrl.($page+1))}}">next</a>&nbsp;
+      <a href="{{URL::to($pageUrl.($page+1).$prefixUrl)}}">next</a>&nbsp;
   @endif
 @stop
