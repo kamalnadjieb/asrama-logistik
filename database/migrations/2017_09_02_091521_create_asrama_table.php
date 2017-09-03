@@ -15,8 +15,8 @@ class CreateAsramaTable extends Migration
     {
         Schema::create('asrama', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
             $table->string('nama');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +27,9 @@ class CreateAsramaTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('histori_edit_barang_proyek');
+        Schema::dropIfExists('proyek_barang');
+        Schema::dropIfExists('proyek');
         Schema::dropIfExists('asrama');
     }
 }
