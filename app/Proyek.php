@@ -14,6 +14,7 @@ class Proyek extends Model
         $this->deskripsi = $array['deskripsi'];
         $this->tanggal_mulai = $array['tanggal_mulai'];
         $this->id_asrama = $array['id_asrama'];
+        $this->id_user = 1; //dummy
     }
 
     public function items()
