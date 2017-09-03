@@ -9,10 +9,27 @@ use App\Barang;
 
 class ProyekController extends Controller
 {
+    private $projectsPerPage = 10;
+
 	public function showAll(){
-		$projects = Proyek::orderBy('tanggal_mulai')->get();
-		return \View::make('project.projects', compact("projects"));
+		$projects = Proyek::orderBy('tanggal_mulai','desc')->get();
+		$page=1;
+        $totalPages = 1;
+		return \View::make('project.projects', compact("projects","page","totalPages"));
 	}
+
+	public function show($page){
+	    $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
+            ->take($this->projectsPerPage)->get();
+	    $totalPages = $this->getTotalPages();
+        return \View::make('project.projects', compact("projects","page","totalPages"));
+    }
+
+    private function getTotalPages(){
+        $total = Proyek::all()->count();
+        $totalPage = $total/$this->projectsPerPage;
+        return $totalPage;
+    }
 
 	public function showProyekById($id) {
 		$project = Proyek::find($id);
