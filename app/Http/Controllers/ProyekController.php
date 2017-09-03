@@ -18,29 +18,31 @@ class ProyekController extends Controller
 
 	public function show(Request $req, $page){
 	    if ($req->has('key')){
-	        return $this->search($req->input('key'),1);
+	        return $this->search($req->input('key'),$page);
         }
 	    $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
             ->take($this->projectsPerPage)->get();
 	    $totalPages = $this->getTotalPages();
 	    $pageUrl = '/logistik/proyek/page/';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
+	    $prefixUrl = '';
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
     public function search($key,$page){
 	    $projects = Proyek::where('nama','ilike','%'.$key.'%')
             ->orWhere('deskripsi','ilike','%'.$key.'%')->skip(($page-1)*$this->projectsPerPage)
             ->take($this->projectsPerPage)->orderBy('tanggal_mulai','desc')->get();
-	    $totalPages = Proyek::where('nama','ilike','%'.$key.'%')
-            ->orWhere('deskripsi','ilike','%'.$key.'%')->count()/$this->projectsPerPage;
-	    $pageUrl = '/logistik/proyek/search/'.$key.'/';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
+	    $totalPages = ceil(Proyek::where('nama','ilike','%'.$key.'%')
+            ->orWhere('deskripsi','ilike','%'.$key.'%')->count()/$this->projectsPerPage);
+	    $pageUrl = '/logistik/proyek/page/';
+	    $prefixUrl = '?key='.$key;
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
     private function getTotalPages(){
         $total = Proyek::all()->count();
         $totalPage = $total/$this->projectsPerPage;
-        return $totalPage;
+        return ceil($totalPage);
     }
 
 	public function showProyekById($id) {
