@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-  <form id="addProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit=validateStok()>
+  <form id="addProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit="return validateStok()">
     {{ csrf_field() }}
     nama: <input name="nama" type="text"></input><br/>
     lokasi: <input name="lokasi" type="text"></input><br/>
@@ -96,11 +96,9 @@
     function validateStok() {
       var arrInputBarang = document.getElementsByName('barang[]');  // <-- this shit right here, is the right one
       var arrInputJumlah = document.getElementsByName('jumlah[]');
+      var arrGroup = document.getElementsByName('group-barang');
       var arrBarang = {!!json_encode($daftarbarang)!!};
 
-      var arrGroup = document.getElementsByName('group');
-
-      /*
       var j = 0;
       for (var i = 0; i < arrInputBarang.length; i++) {
         j = 0;
@@ -111,10 +109,12 @@
         // asumsi keluar loop while itu udah ketemu barang dengan id sama dengan value input
         // dan selalu ketemu (j selalu < arrBarang.length)
         if (arrBarang[j].stok < arrInputJumlah[i].value) {
+          alert("Stok kurang! Cek lagi.");
 
+          return false;
         }
       }
-      */
+
     }
     </script>
 @stop
