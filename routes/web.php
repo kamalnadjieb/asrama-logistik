@@ -34,6 +34,8 @@ Route::any('/logistik/proyek/tambah', 'ProyekController@addForm');
 
 Route::any($proyek.'/page/{page}', ['uses'=> 'ProyekController@show']);
 
+Route::any($proyek.'/search/{key}/{page}', ['uses' => 'ProyekController@search']);
+
 Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById']);
 
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');

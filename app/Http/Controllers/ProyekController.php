@@ -22,7 +22,18 @@ class ProyekController extends Controller
 	    $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
             ->take($this->projectsPerPage)->get();
 	    $totalPages = $this->getTotalPages();
-        return \View::make('project.projects', compact("projects","page","totalPages"));
+	    $pageUrl = '/logistik/proyek/page/';
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
+    }
+
+    public function search($key,$page){
+	    $projects = Proyek::where('nama','like','%'.$key.'%')
+            ->orWhere('deskripsi','like','%'.$key.'%')->skip(($page-1)*$this->projectsPerPage)
+            ->take($this->projectsPerPage)->orderBy('tanggal_mulai','desc')->get();
+	    $totalPages = Proyek::where('nama','like','%'.$key.'%')
+            ->orWhere('deskripsi','like','%'.$key.'%')->count()/$this->projectsPerPage;
+	    $pageUrl = '/logistik/proyek/search/'.$key.'/';
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl"));
     }
 
     private function getTotalPages(){
