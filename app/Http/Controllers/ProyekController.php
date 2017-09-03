@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use App\Proyek;
 use App\Barang;
+use App\Asrama;
 
 class ProyekController extends Controller
 {
@@ -53,7 +54,8 @@ class ProyekController extends Controller
     public function addForm()
     {
         $daftarbarang = Barang::orderBy('nama')->get();
-        return \View::make('project.addProject', compact("daftarbarang"));
+        $daftarasrama = Asrama::orderBy('nama')->get();
+        return \View::make('project.addProject', compact("daftarbarang", "daftarasrama"));
     }
 
     //location should be logistik/barang/tambah
@@ -66,11 +68,17 @@ class ProyekController extends Controller
             $project->setValues($req->all());
             $inserted = $project->save();
             if ($inserted) {
-                $items = $req->input('barang');
+            		$items = $req->input('barang');
+								$jumlah = $req->input('jumlah');
                 $sync_data = [];
-                foreach ($items as $item){
-                    $sync_data[$item] = ['jumlah' => $item];
+								for ($i = 0; $i < count($items); $i++) {
+									$sync_data[$items[$i]] = ['jumlah' => $jumlah[$i]];
+								}
+                /*
+								foreach ($items as $item){
+                    $sync_data[$item] = ['jumlah' => $jumlah];
                 }
+								*/
                 $project->items()->sync($sync_data);
                 echo $querySuccessMessage;
             }

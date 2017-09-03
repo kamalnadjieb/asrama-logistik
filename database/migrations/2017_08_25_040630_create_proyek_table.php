@@ -21,8 +21,6 @@ class CreateProyekTable extends Migration
             $table->date('tanggal_mulai');
             $table->timestamps();
             $table->unique(['nama','tanggal_mulai']);
-            $table->integer('id_asrama')->unsigned();
-            $table->foreign('id_asrama')->references('id')->on('asrama');
         });
     }
 
