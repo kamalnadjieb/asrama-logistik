@@ -35,3 +35,7 @@ Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById'])
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
 
 Route::any('/logistik/proyek/debug/{id}', 'ProyekController@debug');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
