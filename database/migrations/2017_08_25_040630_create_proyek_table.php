@@ -31,6 +31,8 @@ class CreateProyekTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('histori_edit_barang_proyek');
+        Schema::dropIfExists('proyek_barang');
         Schema::dropIfExists('proyek');
     }
 }
