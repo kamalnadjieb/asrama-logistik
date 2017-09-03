@@ -110,6 +110,9 @@
         // dan selalu ketemu (j selalu < arrBarang.length)
         if (arrBarang[j].stok < arrInputJumlah[i].value) {
           alert("Stok kurang! Cek lagi.");
+          alert(arrInputBarang[i].value);
+          arrInputJumlah[i].style.backgroundColor = '#ff8080';
+          //document.getElementsByName('group-barang').style.color = 'black';
 
           return false;
         }
