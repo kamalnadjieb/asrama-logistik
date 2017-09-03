@@ -11,7 +11,7 @@
     lokasi: <input name="lokasi" type="text"></input><br/>
     deskripsi: <input name="deskripsi" type="text"></input><br/>
     tanggal_mulai: <input name="tanggal mulai" type="date"></input><br/>
-	
+
 	<div>
         <div name="group-asrama">
             <div class="form-group">
@@ -39,6 +39,7 @@
                         <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
                         @endforeach
                     </select>
+                    <input id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
                 </div>
             </div>
         </div>
@@ -76,9 +77,10 @@
                         <select class="form-control" id="barang" name="barang[]" required>
                             <option value="" disabled selected>Nama Barang</option>
                             @foreach ($daftarbarang as $barang)
-                            <option value="{{$barang->id}}">{{$barang->nama}}</option>
+                            <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
                             @endforeach
                         </select>
+                        <input id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
                     </div>
                 </div>
                 <a href="#" class="col-sm-offset-2 col-sm-10 remove_field">Remove</a><br/>
