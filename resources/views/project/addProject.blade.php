@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-  <form method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}">
+  <form id="addProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit=validateStok()>
     {{ csrf_field() }}
     nama: <input name="nama" type="text"></input><br/>
     lokasi: <input name="lokasi" type="text"></input><br/>
@@ -39,7 +39,7 @@
                         <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
                         @endforeach
                     </select>
-                    <input id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
+                    <input class="form-control" id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                             <option value="{{$barang->id}}">{{$barang->nama}} Stok = {{$barang->stok}}</option>
                             @endforeach
                         </select>
-                        <input id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
+                        <input class="form-control" id="jumlah" name="jumlah[]" type="number" placeholder="Jumlah barang"></input>
                     </div>
                 </div>
                 <a href="#" class="col-sm-offset-2 col-sm-10 remove_field">Remove</a><br/>
@@ -92,5 +92,29 @@
             e.preventDefault(); $(this).parent('div').remove(); x--;
         })
     });
+
+    function validateStok() {
+      var arrInputBarang = document.getElementsByName('barang[]');  // <-- this shit right here, is the right one
+      var arrInputJumlah = document.getElementsByName('jumlah[]');
+      var arrBarang = {!!json_encode($daftarbarang)!!};
+
+      var arrGroup = document.getElementsByName('group');
+
+      /*
+      var j = 0;
+      for (var i = 0; i < arrInputBarang.length; i++) {
+        j = 0;
+        while (j < arrBarang.length && arrBarang[j].id != arrInputBarang[i].value) {
+          j++;
+        }
+
+        // asumsi keluar loop while itu udah ketemu barang dengan id sama dengan value input
+        // dan selalu ketemu (j selalu < arrBarang.length)
+        if (arrBarang[j].stok < arrInputJumlah[i].value) {
+
+        }
+      }
+      */
+    }
     </script>
 @stop
