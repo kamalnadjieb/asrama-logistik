@@ -18,6 +18,7 @@ class CreateTabelBarang extends Migration
             $table->string('nama');
             $table->string('satuan');
             $table->integer('stok');
+			$table->bigInteger('harga');
             $table->timestamps();
             $table->unique(['nama','satuan']);
         });
@@ -30,6 +31,8 @@ class CreateTabelBarang extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('histori_edit_barang_proyek');
+        Schema::dropIfExists('proyek_barang');
         Schema::dropIfExists('barang');
     }
 }
