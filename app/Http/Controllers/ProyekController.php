@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\URL;
 use App\Proyek;
 use App\Barang;
 use App\Asrama;
+use App\TipePengubahan;
 
 class ProyekController extends Controller
 {
@@ -56,6 +57,14 @@ class ProyekController extends Controller
         $daftarbarang = Barang::orderBy('nama')->get();
         $daftarasrama = Asrama::orderBy('nama')->get();
         return \View::make('project.addProject', compact("daftarbarang", "daftarasrama"));
+    }
+
+    public function editForm($id)
+    {
+        $project = Proyek::find($id);
+        $items = $project->items;
+        $tipepengubahan = TipePengubahan::all();
+        return \View::make('project.editProject', compact("project","items","tipepengubahan"));
     }
 
     //location should be logistik/barang/tambah
