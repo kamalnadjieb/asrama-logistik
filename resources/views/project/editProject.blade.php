@@ -23,4 +23,5 @@
     </select>
     <input type="number" name="jumlah" min="0" max="{{$item->pivot->jumlah}}"> {{$item->satuan}}
   @endforeach
+  <input type="submit" value="submit"/>
 @stop
