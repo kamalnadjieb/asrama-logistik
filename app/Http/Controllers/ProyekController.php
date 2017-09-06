@@ -18,9 +18,11 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
+        $arrayParams = Array();
         $query = Proyek::with('items')->where('status',1);
         if($req->has('key')){
             $key = $req->input('key');
+            $arrayParams['key'] = $key;
             $query->where(function($query) use($key){
                 $query->where('nama','ilike','%'.$key.'%')
                     ->orWhere('deskripsi','ilike','%'.$key.'%');
@@ -28,32 +30,34 @@ class ProyekController extends Controller
         }
         if($req->has('asrama')){
             $asrama = $req->input('asrama');
+            $arrayParams['asrama'] = $asrama;
             $query->where('id_asrama','=',$asrama);
         }
         if($req->has('from')){
             $from = $req->input('from');
+            $arrayParams['from'] = $from;
             $query->whereDate('tanggal_mulai','>=',$from);
         }
         if($req->has('to')){
             $to = $req->input('to');
+            $arrayParams['to'] = $to;
             $query->whereDate('tanggal_mulai','<=',$to);
         }
         if($req->has('useitem')){
             $useItem = $req->input('useitem');
+            $arrayParams['useitem'] = $useItem;
             $query->whereHas('items', function ($query) use($useItem){
                 $query->where('barang.id',$useItem);
             });
         }
         $query->orderBy('tanggal_mulai','desc');
 
+        $prefixUrl = '?'.http_build_query($arrayParams);
+
         $totalPages = ceil($query->count()/$this->projectsPerPage);
         $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
 
         $pageUrl = '/logistik/proyek/page/';
-        $prefixUrl = '';
-        if($req->has('key')){
-            $prefixUrl = '?key='.$req->input('key');
-        }
         return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
