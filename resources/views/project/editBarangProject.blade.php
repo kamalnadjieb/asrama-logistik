@@ -23,7 +23,7 @@
         <option value="{{$tipe->id}}">{{$tipe->nama}}</option>
       @endforeach
       </select>
-      <input type="number" name="jumlah_{{$item->pivot->id}}" min="0" max="{{$item->pivot->jumlah}}"> {{$item->satuan}}
+      <input type="number" name="jumlah_{{$item->pivot->id}}" min="0" max="{{$item->stok}}"> {{$item->satuan}}
     @endforeach
     <input type="submit" value="submit"/>
   </form>
