@@ -10,6 +10,11 @@
       <div class="col-sm-10">
         <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search" required>
       </div>
+      <select id="search-by" name="jenis" required>
+          <option value="semua">Semua</option>
+          <option value="proyek">Proyek</option>
+          <option value="pengadaan">Pengadaan</option>
+      </select>
     </div>
   </form>
 
