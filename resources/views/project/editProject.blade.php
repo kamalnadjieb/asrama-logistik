@@ -5,9 +5,14 @@
 @stop
 
 @section('content')
-  <form id="editProject" method="POST" action="{{URL::to('logistik/proyek/edit/do')}}" onsubmit="return validateStok()">
+  <form id="editProject" method="POST" action="{{URL::to('logistik/proyek/edit/do')}}">
     {{ csrf_field() }}
-    <p>ID proyek: {{$project->id}}</p>
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="id">ID Proyek:</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="id" name="id" value="{{$project->id}}" disabled>
+        </div>
+    </div>
 
     <div class="form-group row">
         <label class="control-label col-sm-2" for="nama">Nama Proyek:</label>
