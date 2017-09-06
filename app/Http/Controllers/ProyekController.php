@@ -18,17 +18,31 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
-        $query = Proyek::where('status',1);
+        $query = Proyek::with('items')->where('status',1);
         if($req->has('key')){
             $key = $req->input('key');
-            $query = $query->where(function($query) use($key){
+            $query->where(function($query) use($key){
                 $query->where('nama','ilike','%'.$key.'%')
                     ->orWhere('deskripsi','ilike','%'.$key.'%');
             });
         }
         if($req->has('asrama')){
             $asrama = $req->input('asrama');
-            $query = $query->where('id_asrama','=',$asrama);
+            $query->where('id_asrama','=',$asrama);
+        }
+        if($req->has('from')){
+            $from = $req->input('from');
+            $query->whereDate('tanggal_mulai','>=',$from);
+        }
+        if($req->has('to')){
+            $to = $req->input('to');
+            $query->whereDate('tanggal_mulai','<=',$to);
+        }
+        if($req->has('useitem')){
+            $useItem = $req->input('useitem');
+            $query->whereHas('items', function ($query) use($useItem){
+                $query->where('barang.id',$useItem);
+            });
         }
         $query->orderBy('tanggal_mulai','desc');
 
