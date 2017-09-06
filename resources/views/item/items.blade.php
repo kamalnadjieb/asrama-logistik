@@ -5,10 +5,23 @@
 @stop
 
 @section('content')
-	<a href="{{url('/logistik/barang/create')}}">Tambah barang</a>
-	<br/>
-	<br/>
-	@foreach($items as $item)
-	  {{$item->nama}} {{$item->stok}} {{$item->satuan}} <a href="{{url('/logistik/barang/' . $item->id . '/edit')}}">edit</a><br/>
-	@endforeach
+	<div class="space"></div>
+	<table class="table table-hover">
+			@foreach($items as $item)
+			<tr>
+				<td>
+					{{$item->nama}}
+				</td>
+				<td>
+					{{$item->stok}}
+				</td>
+				<td>
+					{{$item->satuan}}
+				</td>
+				<td>
+					<a href="{{url('/logistik/barang/' . $item->id . '/edit')}}">edit</a>
+				</td>
+			</tr>
+			@endforeach
+	</table>
 @stop
