@@ -16,15 +16,22 @@
   <div class="space"></div>
 
   <table class="table table-hover">
-  @foreach($projects as $project)
-    <tr>
-      <td>
-        <a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a>
-      </td>
-      <td>{{$project->lokasi}}</td>
-      <td>{{$project->tanggal_mulai}}</td>
-     </tr>
-  @endforeach
+      <tr>
+          <th>Nama</th>
+          <th>Lokasi</th>
+          <th>Mulai</th>
+          <th>Asrama</th>
+      </tr>
+      @foreach($projects as $project)
+        <tr>
+          <td>
+            <a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a>
+          </td>
+          <td>{{$project->lokasi}}</td>
+          <td>{{$project->tanggal_mulai}}</td>
+          <td>{{$project->asrama->nama}}</td>
+         </tr>
+      @endforeach
   </table>
 
   <div class="form-group row">
@@ -33,8 +40,7 @@
               <button type="button" class="btn btn-default"
                       onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
           @else
-              <button type="button" class="btn btn-default disabled"
-                      onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
+              <button type="button" class="btn btn-default disabled">prev</button>
           @endif
       </div>
 
@@ -55,8 +61,7 @@
               <button type="button" class="btn btn-default"
                       onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
           @else
-              <button type="button" class="btn btn-default disabled"
-                      onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
+              <button type="button" class="btn btn-default disabled">next</button>
           @endif
       </div>
   </div>
