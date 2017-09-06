@@ -18,25 +18,46 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
-        if ($req->has('key')){
-            return $this->search($req->input('key'),$page);
+        $arrayParams = Array();
+        $query = Proyek::with('items')->where('status',1);
+        if($req->has('key')){
+            $key = $req->input('key');
+            $arrayParams['key'] = $key;
+            $query->where(function($query) use($key){
+                $query->where('nama','ilike','%'.$key.'%')
+                    ->orWhere('deskripsi','ilike','%'.$key.'%');
+            });
         }
-            $projects = Proyek::where('status',1)->orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
-            ->take($this->projectsPerPage)->get();
-            $totalPages = $this->getTotalPages();
-            $pageUrl = '/logistik/proyek/page/';
-            $prefixUrl = '';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
-    }
+        if($req->has('asrama')){
+            $asrama = $req->input('asrama');
+            $arrayParams['asrama'] = $asrama;
+            $query->where('id_asrama','=',$asrama);
+        }
+        if($req->has('from')){
+            $from = $req->input('from');
+            $arrayParams['from'] = $from;
+            $query->whereDate('tanggal_mulai','>=',$from);
+        }
+        if($req->has('to')){
+            $to = $req->input('to');
+            $arrayParams['to'] = $to;
+            $query->whereDate('tanggal_mulai','<=',$to);
+        }
+        if($req->has('useitem')){
+            $useItem = $req->input('useitem');
+            $arrayParams['useitem'] = $useItem;
+            $query->whereHas('items', function ($query) use($useItem){
+                $query->where('barang.id',$useItem);
+            });
+        }
+        $query->orderBy('tanggal_mulai','desc');
 
-    public function search($key,$page){
-	    $projects = Proyek::where('nama','ilike','%'.$key.'%')
-            ->orWhere('deskripsi','ilike','%'.$key.'%')->skip(($page-1)*$this->projectsPerPage)
-            ->take($this->projectsPerPage)->orderBy('tanggal_mulai','desc')->get();
-	    $totalPages = ceil(Proyek::where('nama','ilike','%'.$key.'%')
-            ->orWhere('deskripsi','ilike','%'.$key.'%')->count()/$this->projectsPerPage);
-	    $pageUrl = '/logistik/proyek/page/';
-	    $prefixUrl = '?key='.$key;
+        $prefixUrl = '?'.http_build_query($arrayParams);
+
+        $totalPages = ceil($query->count()/$this->projectsPerPage);
+        $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
+
+        $pageUrl = '/logistik/proyek/page/';
         return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
