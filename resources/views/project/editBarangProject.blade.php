@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-  <form id="editProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit="return validateStok()">
+  <form id="editBarangProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit="return validateStok()">
     {{ csrf_field() }}
     <p>ID proyek: {{$project->id}}</p>
     <p>Nama proyek: {{$project->nama}}</p>
