@@ -58,7 +58,9 @@ class ProyekController extends Controller
         $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
 
         $pageUrl = '/logistik/proyek/page/';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
+
+        $dorms = Asrama::all();
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl", "dorms"));
     }
 
     private function getTotalPages(){
