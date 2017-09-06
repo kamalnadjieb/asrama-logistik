@@ -8,7 +8,7 @@
   <form method="get" action="{{URL::to('/logistik/proyek/page/1')}}">
     <div class="form-group">
       <div class="col-sm-2">
-        <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search" required>
+        <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search">
       </div>
       <div class="col-sm-2">
           <select class="form-control" id="search-by" name="jenis">
