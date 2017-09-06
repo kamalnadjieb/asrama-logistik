@@ -18,26 +18,22 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
-        if ($req->has('key')){
-            return $this->search($req->input('key'),$page);
-        }
-            $projects = Proyek::where('status',1)->orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
-            ->take($this->projectsPerPage)->get();
-            $totalPages = $this->getTotalPages();
-            $pageUrl = '/logistik/proyek/page/';
-            $prefixUrl = '';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
-    }
+        $projects = Proyek::where('status',1)->where(function($query) use ($req){
+            if($req->has('key')){
+                $key = $req->input('key');
+                $query->where('nama','ilike','%'.$key.'%')
+                    ->orWhere('deskripsi','ilike','%'.$key.'%');
+            }
+        })->orderBy('tanggal_mulai')->get()->toArray();
 
-    public function search($key,$page){
-	    $projects = Proyek::where('nama','ilike','%'.$key.'%')
-            ->orWhere('deskripsi','ilike','%'.$key.'%')->skip(($page-1)*$this->projectsPerPage)
-            ->take($this->projectsPerPage)->orderBy('tanggal_mulai','desc')->get();
-	    $totalPages = ceil(Proyek::where('nama','ilike','%'.$key.'%')
-            ->orWhere('deskripsi','ilike','%'.$key.'%')->count()/$this->projectsPerPage);
-	    $pageUrl = '/logistik/proyek/page/';
-	    $prefixUrl = '?key='.$key;
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
+        $totalPages = ceil(count($projects)/$this->projectsPerPage);
+        $pageUrl = '/logistik/proyek/page/';
+        $prefixUrl = '';
+        if($req->has('key')){
+            $prefixUrl = '?key='.$req->input('key');
+        }
+        $slicedProjects = array_slice($projects, ($page-1)*$this->projectsPerPage, $this->projectsPerPage);
+        return \View::make('project.projects', compact("slicedProjects","page","totalPages","pageUrl","prefixUrl"));
     }
 
     private function getTotalPages(){
