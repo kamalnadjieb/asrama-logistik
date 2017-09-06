@@ -7,15 +7,33 @@
 @section('content')
   <form method="get" action="{{URL::to('/logistik/proyek/page/1')}}">
     <div class="form-group">
-      <div class="col-sm-10">
+      <div class="col-sm-2">
         <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search" required>
       </div>
-      <select id="search-by" name="jenis" required>
-          <option value="semua">Semua</option>
-          <option value="proyek">Proyek</option>
-          <option value="pengadaan">Pengadaan</option>
-      </select>
+      <div class="col-sm-2">
+          <select class="form-control" id="search-by" name="jenis">
+              <option value="semua">Semua jenis</option>
+              <option value="proyek">Proyek</option>
+              <option value="pengadaan">Pengadaan</option>
+          </select>
+      </div>
+        <div class="col-sm-2">
+            <input type="text" name="from" class="form-control" placeholder="from" onfocus="(this.type='date')"/>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" name="to" class="form-control" placeholder="to" onfocus="(this.type='date')"/>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" name="asrama">
+                <option value="">semua asrama</option>
+                @foreach($dorms as $dorm)
+                    <option value="{{$dorm->id}}">{{$dorm->nama}}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
+      <div class="form-group"><button type="submit" class="btn btn-primary">filter</button></div>
   </form>
 
   <div class="space"></div>
