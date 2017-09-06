@@ -21,4 +21,8 @@ class Proyek extends Model
     {
         return $this->belongsToMany('App\Barang', 'proyek_barang', 'id_proyek', 'id_barang')->withPivot('id', 'jumlah')->withTimestamps();
     }
+
+    public function asrama(){
+        return $this->belongsTo('App\Asrama','id_asrama');
+    }
 }
