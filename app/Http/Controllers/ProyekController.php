@@ -18,22 +18,23 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
-        $projects = Proyek::where('status',1)->where(function($query) use ($req){
+        $query = Proyek::where('status',1)->where(function($query) use ($req){
             if($req->has('key')){
                 $key = $req->input('key');
                 $query->where('nama','ilike','%'.$key.'%')
                     ->orWhere('deskripsi','ilike','%'.$key.'%');
             }
-        })->orderBy('tanggal_mulai')->get()->toArray();
+        })->orderBy('tanggal_mulai','desc');
 
-        $totalPages = ceil(count($projects)/$this->projectsPerPage);
+        $totalPages = ceil($query->count()/$this->projectsPerPage);
+        $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
+
         $pageUrl = '/logistik/proyek/page/';
         $prefixUrl = '';
         if($req->has('key')){
             $prefixUrl = '?key='.$req->input('key');
         }
-        $slicedProjects = array_slice($projects, ($page-1)*$this->projectsPerPage, $this->projectsPerPage);
-        return \View::make('project.projects', compact("slicedProjects","page","totalPages","pageUrl","prefixUrl"));
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
     private function getTotalPages(){
