@@ -20,6 +20,7 @@ class CreateHistoriEditBarangProyekTable extends Migration
             $table->integer('id_tipe_pengubahan')->unsigned();
             $table->foreign('id_tipe_pengubahan')->references('id')->on('tipe_pengubahan_jumlah_barang');
             $table->integer('jumlah');
+            $table->integer('jumlah_setelahnya');
             $table->timestamps();
         });
     }
