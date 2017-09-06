@@ -7,10 +7,33 @@
 @section('content')
   <form id="addProject" method="POST" action="{{URL::to('logistik/proyek/tambah/do')}}" onsubmit="return validateStok()">
     {{ csrf_field() }}
-    nama: <input name="nama" type="text"></input><br/>
-    lokasi: <input name="lokasi" type="text"></input><br/>
-    deskripsi: <input name="deskripsi" type="text"></input><br/>
-    tanggal_mulai: <input name="tanggal mulai" type="date"></input><br/>
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="nama">Nama:</label>
+          <div class="col-sm-10">
+              <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="lokasi">Lokasi:</label>
+          <div class="col-sm-10">
+              <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Lokasi" required>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="deskripsi">Deskripsi:</label>
+          <div class="col-sm-10">
+              <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi" required>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label class="control-label col-sm-2" for="tanggal_mulai">Tanggal Mulai:</label>
+          <div class="col-sm-10">
+              <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" placeholder="Tanggal Mulai" required>
+          </div>
+      </div>
 
     <div>
         <div name="group-asrama">
@@ -58,7 +81,7 @@
 
 
     
-    <input type="submit" value="submit"/>
+    <input type="submit" class="btn btn-primary" value="submit"/>
   </form>
 @stop
 
