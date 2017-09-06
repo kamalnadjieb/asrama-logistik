@@ -18,13 +18,19 @@ class ProyekController extends Controller
     }
 
     public function show(Request $req, $page){
-        $query = Proyek::where('status',1)->where(function($query) use ($req){
-            if($req->has('key')){
-                $key = $req->input('key');
+        $query = Proyek::where('status',1);
+        if($req->has('key')){
+            $key = $req->input('key');
+            $query = $query->where(function($query) use($key){
                 $query->where('nama','ilike','%'.$key.'%')
                     ->orWhere('deskripsi','ilike','%'.$key.'%');
-            }
-        })->orderBy('tanggal_mulai','desc');
+            });
+        }
+        if($req->has('asrama')){
+            $asrama = $req->input('asrama');
+            $query = $query->where('id_asrama','=',$asrama);
+        }
+        $query->orderBy('tanggal_mulai','desc');
 
         $totalPages = ceil($query->count()/$this->projectsPerPage);
         $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
