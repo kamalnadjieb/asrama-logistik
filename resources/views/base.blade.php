@@ -35,14 +35,14 @@
         <ul class="nav navbar-nav">
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Proyek<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Lihat proyek</a></li>
-                    <li><a href="#">Tambah proyek</a></li>
+                    <li><a href="{{URL::to('/logistik/proyek')}}">Lihat proyek</a></li>
+                    <li><a href="{{URL::to('/logistik/proyek/tambah')}}">Tambah proyek</a></li>
                 </ul>
             </li>
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Gudang<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Lihat barang</a></li>
-                    <li><a href="#">Tambah barang</a></li>
+                    <li><a href="{{URL::to('/logistik/barang')}}">Lihat barang</a></li>
+                    <li><a href="{{URL::to('/logistik/barang/tambah')}}">Tambah barang</a></li>
                 </ul>
             </li>
         </ul>

@@ -26,19 +26,38 @@
      </tr>
   @endforeach
   </table>
-  @if($page>1)
-      <a href="{{URL::to($pageUrl.($page-1).$prefixUrl)}}">prev</a>&nbsp;
-  @endif
 
-  @for($i=1;$i<=$totalPages;$i++)
-      @if($i == $page)
-          {{$i}}&nbsp;
-      @else
-          <a href="{{URL::to($pageUrl.$i.$prefixUrl)}}">{{$i}}</a>&nbsp;
-      @endif
-  @endfor
+  <div class="form-group row">
+      <div class="col-xs-1">
+          @if($page>1)
+              <button type="button" class="btn btn-default"
+                      onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
+          @else
+              <button type="button" class="btn btn-default disabled"
+                      onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
+          @endif
+      </div>
 
-  @if($page<$totalPages)
-      <a href="{{URL::to($pageUrl.($page+1).$prefixUrl)}}">next</a>&nbsp;
-  @endif
+      <div class="col-xs-1">
+          <select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          @for($i=1;$i<=$totalPages;$i++)
+              @if($i==$page)
+                  <option value="{{URL::to($pageUrl.$i.$prefixUrl)}}" selected>{{$i}}</option>
+              @else
+                <option value="{{URL::to($pageUrl.$i.$prefixUrl)}}">{{$i}}</option>
+              @endif
+          @endfor
+          </select>
+      </div>
+
+      <div class="col-xs-1">
+          @if($page<$totalPages)
+              <button type="button" class="btn btn-default"
+                      onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
+          @else
+              <button type="button" class="btn btn-default disabled"
+                      onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
+          @endif
+      </div>
+  </div>
 @stop
