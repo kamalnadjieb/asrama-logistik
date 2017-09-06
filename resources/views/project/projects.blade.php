@@ -5,13 +5,26 @@
 @stop
 
 @section('content')
+
   <form method="get" action="{{URL::to('/logistik/proyek/page/1')}}">
-    <input name="key" type="text" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" placeholder="search"/>
+    <div class="form-group">
+      <div class="col-sm-10">
+        <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search" required>
+      </div>
+    </div>
   </form>
 
-  <table>
+  <div class="space"></div>
+
+  <table class="table table-hover">
   @foreach($projects as $project)
-    <tr><td><a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a></td> <td>{{$project->lokasi}}</td> <td>{{$project->tanggal_mulai}}</td></tr>
+    <tr>
+      <td>
+        <a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a>
+      </td>
+      <td>{{$project->lokasi}}</td>
+      <td>{{$project->tanggal_mulai}}</td>
+     </tr>
   @endforeach
   </table>
   @if($page>1)

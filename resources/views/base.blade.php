@@ -5,6 +5,7 @@
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <title>@yield('title')</title>
     <style>
+        .space { margin-top: 75px; }
         .navbar-fixed-left {
             width: 140px;
             position: fixed;
@@ -38,7 +39,7 @@
                     <li><a href="#">Tambah proyek</a></li>
                 </ul>
             </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Barang<span class="caret"></span></a>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Gudang<span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#">Lihat barang</a></li>
                     <li><a href="#">Tambah barang</a></li>
@@ -48,7 +49,7 @@
     </div>
     <div class="container">
         <div class="row">
-            @yield('content');
+            @yield('content')
         </div>
     </div>
 </body>
