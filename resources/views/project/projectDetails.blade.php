@@ -19,4 +19,5 @@
   @endforeach
   
   <a href="{{ url('logistik/proyek/' . $project->id . '/delete') }}">Delete Project</a>
+  <a href="{{ url('logistik/proyek/' . $project->id . '/close') }}">Close Project</a>
 @stop

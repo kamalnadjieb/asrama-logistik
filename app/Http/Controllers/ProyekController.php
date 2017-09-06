@@ -14,14 +14,14 @@ class ProyekController extends Controller
     private $projectsPerPage = 10;
 
     public function showAll(Request $req){
-    return $this->show($req,1);
+        return $this->show($req,1);
     }
 
     public function show(Request $req, $page){
         if ($req->has('key')){
             return $this->search($req->input('key'),$page);
         }
-            $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
+            $projects = Proyek::where('status',1)->orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
             ->take($this->projectsPerPage)->get();
             $totalPages = $this->getTotalPages();
             $pageUrl = '/logistik/proyek/page/';
@@ -105,6 +105,15 @@ class ProyekController extends Controller
         $project->delete();
         
         echo "Record deleted successfully.<br/>";
+        echo '<a href="../">Click Here</a> to go back.';
+    }
+    
+    public function closeProject($id)
+    {
+        $project = Proyek::find($id);
+        Proyek::where('id', $id)->update(array('status'  => 0));
+        
+        echo "Proyek berhasil di tutup.<br/>";
         echo '<a href="../">Click Here</a> to go back.';
     }
     
