@@ -13,19 +13,19 @@ class ProyekController extends Controller
 {
     private $projectsPerPage = 10;
 
-	public function showAll(Request $req){
-        return $this->show($req,1);
-	}
+    public function showAll(Request $req){
+    return $this->show($req,1);
+    }
 
-	public function show(Request $req, $page){
-	    if ($req->has('key')){
-	        return $this->search($req->input('key'),$page);
+    public function show(Request $req, $page){
+        if ($req->has('key')){
+            return $this->search($req->input('key'),$page);
         }
-	    $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
+            $projects = Proyek::orderBy('tanggal_mulai','desc')->skip(($page-1)*$this->projectsPerPage)
             ->take($this->projectsPerPage)->get();
-	    $totalPages = $this->getTotalPages();
-	    $pageUrl = '/logistik/proyek/page/';
-	    $prefixUrl = '';
+            $totalPages = $this->getTotalPages();
+            $pageUrl = '/logistik/proyek/page/';
+            $prefixUrl = '';
         return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
     }
 
@@ -46,11 +46,11 @@ class ProyekController extends Controller
         return ceil($totalPage);
     }
 
-	public function showProyekById($id) {
-		$project = Proyek::find($id);
-		$items = $project->items;
-		return \View::make('project.projectDetails', compact("project","items"));
-	}
+    public function showProyekById($id) {
+            $project = Proyek::find($id);
+            $items = $project->items;
+            return \View::make('project.projectDetails', compact("project","items"));
+    }
 
     public function addForm()
     {
@@ -98,7 +98,16 @@ class ProyekController extends Controller
             echo $queryFailMessage;
         }
     }
-
+    
+    public function deleteProject($id)
+    {
+        $project = Proyek::find($id);
+        $project->delete();
+        
+        echo "Record deleted successfully.<br/>";
+        echo '<a href="../">Click Here</a> to go back.';
+    }
+    
     public function debug($id)
     {
         $items = Proyek::find($id)->items;

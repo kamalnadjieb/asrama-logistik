@@ -17,4 +17,6 @@
     {{$item->nama}} {{$item->stok}}/{{$item->pivot->jumlah}} {{$item->satuan}}
     <a href="{{ url('logistik/proyek/' . $project->id . '/edit') }}">Tambah/Kurang</a><br/>
   @endforeach
+  
+  <a href="{{ url('logistik/proyek/' . $project->id . '/delete') }}">Delete Project</a>
 @stop

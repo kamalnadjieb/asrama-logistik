@@ -38,6 +38,8 @@ Route::any('logistik/proyek/{id}', ['uses' =>'ProyekController@showProyekById'])
 
 Route::any('logistik/proyek/{id}/edit', ['uses' => 'ProyekController@editForm']);
 
+Route::any('logistik/proyek/{id}/delete', ['uses' => 'ProyekController@deleteProject']);
+
 Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
 
 Route::any('/logistik/proyek/debug/{id}', 'ProyekController@debug');
