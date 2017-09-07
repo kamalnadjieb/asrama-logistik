@@ -125,6 +125,22 @@ class ProyekController extends Controller
         }
     }
     
+    public function editProject(Request $req)
+    {
+        $data = $req->all();
+        $project = Proyek::where('id', $data['id'])->first();
+        $project->nama = $data['nama'];
+        $project->lokasi = $data['lokasi'];
+        $project->deskripsi = $data['deskripsi'];
+        $project->tanggal_mulai = $data['tanggal_mulai'];
+        if($project->save()){
+            return redirect('logistik/proyek');
+        }
+        else{
+            return redirect('logistik/proyek/' . $data['id']);
+        }
+    }
+    
     public function deleteProject($id)
     {
         $project = Proyek::find($id);
