@@ -49,3 +49,5 @@ Route::any('/logistik/proyek/debug/{id}', 'ProyekController@debug');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::any('/keuangan', 'KeuanganController@index');
