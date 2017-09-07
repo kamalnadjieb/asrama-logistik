@@ -46,6 +46,8 @@ Route::post('/logistik/proyek/tambah/do', 'ProyekController@addProject');
 
 Route::any('/logistik/proyek/debug/{id}', 'ProyekController@debug');
 
+Route::any('/logistik/proyek/edit/do', 'ProyekController@editProject');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
