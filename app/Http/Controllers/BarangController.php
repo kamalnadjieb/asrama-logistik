@@ -40,22 +40,24 @@ class BarangController extends Controller
    */
   public function store(Request $request)
   {
-    $querySuccessMessage = "<script>alert('barang berhasil ditambahkan');window.location = '".URL::to('logistik/barang')."';</script>";
-    $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/tambah')."';</script>";
-    try{
+    // $querySuccessMessage = "<script>alert('barang berhasil ditambahkan');window.location = '".URL::to('logistik/barang')."';</script>";
+    // $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/tambah')."';</script>";
+    // try{
       $item = new Barang();
-      $item->nama = $request->input('nama');
-      $item->satuan = $request->input('satuan');
-      $item->stok = $request->input('stok');
+      $data = $request->all();
+      $item->nama = $data['nama'];
+      $item->satuan = $data['satuan'];
+      $item->stok = $data['stok'];
       $inserted = $item->save();
       if ($inserted)
-        echo $querySuccessMessage;
+        // echo $querySuccessMessage;
+        return redirect('logistik/barang');
       else {
-        echo $queryFailMessage;
+        // echo $queryFailMessage;
       }
-    } catch (QueryException $e) {
-      echo $queryFailMessage;
-    }
+    // } catch (QueryException $e) {
+    //   echo $queryFailMessage;
+    // }
     return redirect('logistik/barang');
   }
 
@@ -94,22 +96,24 @@ class BarangController extends Controller
    */
   public function update($id, Request $request)
   {
-      $querySuccessMessage = "<script>alert('barang berhasil diperbarui');window.location = '".URL::to('logistik/barang')."';</script>";
-    $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/update')."';</script>";
-    try{
-      $item = Barang::where('id', $req->input('id'))->first();
-      $item->nama = $req->input('nama');
-      $item->satuan = $req->input('satuan');
-      $item->stok = $req->input('stok');
+    //   $querySuccessMessage = "<script>alert('barang berhasil diperbarui');window.location = '".URL::to('logistik/barang')."';</script>";
+    // $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang/update')."';</script>";
+    // try{
+      $data = $request->all();
+      $item = Barang::where('id', $id)->first();
+      $item->nama = $data['nama'];
+      $item->satuan = $data['satuan'];
+      $item->stok = $data['stok'];
       $updated = $item->save();
       if ($updated)
-        echo $querySuccessMessage;
+        return redirect('logistik/barang');
+        // echo $querySuccessMessage;
       else {
-        echo $queryFailMessage;
+        // echo $queryFailMessage;
       }
-    } catch (QueryException $e) {
-      echo $queryFailMessage;
-    }
+    // } catch (QueryException $e) {
+    //   echo $queryFailMessage;
+    // }
 
       return redirect('logistik/barang');
   }
@@ -123,10 +127,10 @@ class BarangController extends Controller
    */
   public function destroy($id)
   {
-       $querySuccessMessage = "<script>alert('barang berhasil dihapus');window.location = '".URL::to('logistik/barang')."';</script>";
+       $querySuccessMessage = "<script>alert('barang berhasil dihapus');window.location = '".URL::to('logistik/barang') ."';</script>";
     $queryFailMessage = "<script>alert('terjadi kesalahan');window.location = '".URL::to('logistik/barang')."';</script>";
     try{
-      $item = Barang::where('id', $req->input('id'))->first();
+      $item = Barang::where('id', $id)->first();
       $deleted = $item->delete();
       if ($deleted)
         echo $querySuccessMessage;

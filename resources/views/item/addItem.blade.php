@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-  <form method="POST" action="{{url('logistik/barang')}}">
+  <form method="POST" action="{{url('/logistik/barang')}}">
     {{ csrf_field() }}
     nama: <input name="nama" type="text"></input><br/>
     satuan: <input name="satuan" type="text"></input><br/>

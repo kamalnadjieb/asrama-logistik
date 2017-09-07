@@ -96,6 +96,7 @@ class ProyekController extends Controller
         try {
             $project = new Proyek();
             $project->setValues($req->all());
+            $project->id_user = 1; //dummy
             $inserted = $project->save();
             if ($inserted) {
             		$items = $req->input('barang');

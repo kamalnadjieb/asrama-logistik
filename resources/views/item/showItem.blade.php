@@ -5,7 +5,20 @@
 @stop
 
 @section('content')
-    nama: {{$item->nama}}<br/>
-    satuan: {{$item->satuan}}<br/>
-    stok: {{$item->stok}}<br/>
+    <table class="table table-hover">
+		<tr>
+			<td>
+				{{$item->nama}}
+			</td>
+			<td>
+				{{$item->stok}}
+			</td>
+			<td>
+				{{$item->satuan}}
+			</td>
+			<td>
+				<a href="{{url('/logistik/barang/' . $item->id . '/edit')}}">edit</a>
+			</td>
+		</tr>
+	</table>
 @stop
