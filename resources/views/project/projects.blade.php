@@ -7,29 +7,54 @@
 @section('content')
   <form method="get" action="{{URL::to('/logistik/proyek/page/1')}}">
     <div class="form-group">
-      <div class="col-sm-10">
-        <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search" required>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }" id="key" name="key" placeholder="search">
       </div>
-      <select id="search-by" name="jenis" required>
-          <option value="semua">Semua</option>
-          <option value="proyek">Proyek</option>
-          <option value="pengadaan">Pengadaan</option>
-      </select>
+      <div class="col-sm-2">
+          <select class="form-control" id="search-by" name="jenis">
+              <option value="semua">Semua jenis</option>
+              <option value="proyek">Proyek</option>
+              <option value="pengadaan">Pengadaan</option>
+          </select>
+      </div>
+        <div class="col-sm-2">
+            <input type="text" name="from" class="form-control" placeholder="from" onfocus="(this.type='date')"/>
+        </div>
+        <div class="col-sm-2">
+            <input type="text" name="to" class="form-control" placeholder="to" onfocus="(this.type='date')"/>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" name="asrama">
+                <option value="">semua asrama</option>
+                @foreach($dorms as $dorm)
+                    <option value="{{$dorm->id}}">{{$dorm->nama}}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
+      <div class="form-group"><button type="submit" class="btn btn-primary">filter</button></div>
   </form>
 
   <div class="space"></div>
 
   <table class="table table-hover">
-  @foreach($projects as $project)
-    <tr>
-      <td>
-        <a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a>
-      </td>
-      <td>{{$project->lokasi}}</td>
-      <td>{{$project->tanggal_mulai}}</td>
-     </tr>
-  @endforeach
+      <tr>
+          <th>Nama</th>
+          <th>Lokasi</th>
+          <th>Mulai</th>
+          <th>Asrama</th>
+      </tr>
+      @foreach($projects as $project)
+        <tr>
+          <td>
+            <a href="{{ URL::to('/logistik/proyek/'.$project->id)}}">{{$project->nama}}</a>
+          </td>
+          <td>{{$project->lokasi}}</td>
+          <td>{{$project->tanggal_mulai}}</td>
+          <td>{{$project->asrama->nama}}</td>
+         </tr>
+      @endforeach
   </table>
 
   <div class="form-group row">
@@ -38,8 +63,7 @@
               <button type="button" class="btn btn-default"
                       onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
           @else
-              <button type="button" class="btn btn-default disabled"
-                      onclick="window.location='{{URL::to($pageUrl.($page-1).$prefixUrl)}}'">prev</button>
+              <button type="button" class="btn btn-default disabled">prev</button>
           @endif
       </div>
 
@@ -60,8 +84,7 @@
               <button type="button" class="btn btn-default"
                       onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
           @else
-              <button type="button" class="btn btn-default disabled"
-                      onclick="window.location='{{URL::to($pageUrl.($page+1).$prefixUrl)}}'">next</button>
+              <button type="button" class="btn btn-default disabled">next</button>
           @endif
       </div>
   </div>

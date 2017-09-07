@@ -19,7 +19,7 @@ class ProyekController extends Controller
 
     public function show(Request $req, $page){
         $arrayParams = Array();
-        $query = Proyek::with('items')->where('status',1);
+        $query = Proyek::with(['items','asrama'])->where('status',1);
         if($req->has('key')){
             $key = $req->input('key');
             $arrayParams['key'] = $key;
@@ -52,13 +52,17 @@ class ProyekController extends Controller
         }
         $query->orderBy('tanggal_mulai','desc');
 
+        $query->getRelation('asrama');
+
         $prefixUrl = '?'.http_build_query($arrayParams);
 
         $totalPages = ceil($query->count()/$this->projectsPerPage);
         $projects = $query->skip(($page-1)*$this->projectsPerPage)->take($this->projectsPerPage)->get();
 
         $pageUrl = '/logistik/proyek/page/';
-        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl"));
+
+        $dorms = Asrama::all();
+        return \View::make('project.projects', compact("projects","page","totalPages","pageUrl","prefixUrl", "dorms"));
     }
 
     private function getTotalPages(){
